@@ -1,26 +1,31 @@
 <div dir="rtl" align="center">
 
-# 🛍️ KiarashMarket - فروشگاه آنلاین کیارش
+# 🛍️ KiarashMarket | فروشگاه آنلاین کیارش
 
-![Django](https://img.shields.io/badge/Django-5.0-green?logo=django)
-![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?logo=mongodb)
-![SQL Server](https://img.shields.io/badge/SQL-Server-red?logo=microsoftsqlserver)
-![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)
+![Django](https://img.shields.io/badge/Django-5.0-green?logo=django&style=flat-square)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-brightgreen?logo=mongodb&style=flat-square)
+![SQL Server](https://img.shields.io/badge/SQL-Server-red?logo=microsoftsqlserver&style=flat-square)
+![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
-**یک فروشگاه آنلاین کامل، حرفهای و مدرن با Django** 🚀
+> **یک فروشگاه آنلاین کامل، حرفهای و مدرن با معماری دوگانه دیتابیس** 🚀
+
+</div>
 
 ---
 
-## 🎬 دموی تصویری پروژه
+## 📸 دموی تصویری پروژه
+
+<div dir="ltr" align="center">
 
 | بخش | نمایش |
 |:---:|:---:|
-| **صفحه اصلی** | ![Home](demo/home.gif) |
-| **دستهبندیها** | ![Categories](demo/categories.gif) |
-| **محصولات** | ![Products](demo/products.gif) |
-| **سبد خرید** | ![Cart](demo/cart.gif) |
-| **تسویه حساب** | ![Checkout](demo/checkout.gif) |
-| **پنل مدیریت** | ![Admin](demo/admin.gif) |
+| 🏠 **صفحه اصلی** | ![Home](demo/home.gif) |
+| 📂 **دستهبندیها** | ![Categories](demo/categories.gif) |
+| 📦 **محصولات** | ![Products](demo/products.gif) |
+| 🛒 **سبد خرید** | ![Cart](demo/cart.gif) |
+| 💳 **تسویه حساب** | ![Checkout](demo/checkout.gif) |
+| 👑 **پنل مدیریت** | ![Admin](demo/admin.gif) |
 
 </div>
 
@@ -28,33 +33,33 @@
 
 ## 📌 درباره پروژه
 
-| بخش | توضیحات |
-|------|---------|
-| **نام پروژه** | KiarashMarket |
-| **زبان برنامهنویسی** | Python 3.13 |
-| **فریمورک** | Django 5.0 |
-| **دیتابیس محصولات** | MongoDB Atlas |
-| **دیتابیس کاربران و تراکنشها** | SQL Server |
-| **وضعیت** | کامل و آماده به کار |
+| ویژگی | توضیحات |
+|:------|:---------|
+| 🏷️ **نام پروژه** | `KiarashMarket` |
+| 🐍 **زبان برنامهنویسی** | Python 3.13 |
+| 🎯 **فریمورک** | Django 5.0 |
+| 🍃 **دیتابیس محصولات** | MongoDB Atlas |
+| 🗄️ **دیتابیس کاربران و تراکنشها** | SQL Server |
+| ✅ **وضعیت** | کامل و آماده به کار |
 
 ---
 
-## 🛠️ معماری فنی تخصصی
+## 🏗️ معماری فنی تخصصی
 
-### ساختار دوگانه دیتابیس
+### 📊 ساختار دوگانه دیتابیس
 
 | دیتابیس | نقش | جداول/کالکشنها |
 |:--------|:----|:----------------|
-| **MongoDB (NoSQL)** | ذخیره محصولات و دستهبندیها | `categories`, `snacks`, `spices`, `dairy`, `drinks` (15 کالکشن) |
-| **SQL Server (RDBMS)** | ذخیره اطلاعات کاربری و تراکنشها | `UserInfo`, `Cart`, `Order`, `OrderItem` |
+| 🍃 **MongoDB (NoSQL)** | ذخیره محصولات و دستهبندیها | `categories`, `snacks`, `spices`, `dairy`, `drinks` (15 کالکشن) |
+| 🗄️ **SQL Server (RDBMS)** | ذخیره اطلاعات کاربری و تراکنشها | `UserInfo`, `Cart`, `Order`, `OrderItem` |
 
-### چرا این معماری؟
+### 💡 چرا این معماری؟
 
 | مزیت | توضیح |
 |:-----|:------|
-| **مقیاسپذیری** | اضافه کردن دسته جدید بدون نیاز به مایگریشن |
-| **یکپارچگی** | تراکنشهای مالی با قابلیت ACID |
-| **عملکرد** | هر دیتابیس در حوزه تخصصی خود بهینه است |
+| 📈 **مقیاسپذیری** | اضافه کردن دسته جدید بدون نیاز به مایگریشن |
+| 🔗 **یکپارچگی** | تراکنشهای مالی با قابلیت ACID |
+| ⚡ **عملکرد** | هر دیتابیس در حوزه تخصصی خود بهینه است |
 
 ---
 
@@ -62,7 +67,7 @@
 
 محصولات فروشگاه با استفاده از **Selenium** و **BeautifulSoup** از فروشگاه اوکلا (Okala) اسکرپ شدهاند.
 
-### ساختار داده محصولات
+### 📄 ساختار داده محصولات
 
 ```json
 {
@@ -74,32 +79,32 @@
 }
 ```
 
-آمار استخراج شده
+📊 آمار استخراج شده
 
 دستهبندی تعداد محصولات
-تنقلات (Snacks) 50+
-ادویه و چاشنی (Spices) 30+
-لبنیات (Dairy) 40+
-نوشیدنی (Drinks) 35+
-میوه و سبزیجات (Fruits) 25+
-خواربار (Grocery) 30+
-آجیل و خشکبار (Nuts) 20+
-مجموع 300+ محصول
+🍿 تنقلات (Snacks) 50+
+🌶️ ادویه و چاشنی (Spices) 30+
+🥛 لبنیات (Dairy) 40+
+🥤 نوشیدنی (Drinks) 35+
+🍎 میوه و سبزیجات (Fruits) 25+
+🥫 خواربار (Grocery) 30+
+🥜 آجیل و خشکبار (Nuts) 20+
+📦 مجموع 300+ محصول
 
 ---
 
 ✨ قابلیتهای کلیدی
 
-برای کاربران عادی
+👤 برای کاربران عادی
 
 قابلیت توضیح فنی
 🔍 جستجوی زنده API با Debounce + پیشنهادات لحظهای
 🛒 سبد خرید پویا آپدیت تعداد و قیمت بدون رفرش (AJAX)
 💳 درگاه پرداخت شبیهسازی شده اعتبارسنجی کارت + کد امنیتی
-📊 تاریخچه سفارشات نمایش همه سفارشات قبلی با جزئیات کامل
+📜 تاریخچه سفارشات نمایش همه سفارشات قبلی با جزئیات کامل
 👤 پروفایل کاربری ویرایش اطلاعات + کد ملی + تاریخ تولد
 
-برای مدیر (پنل مدیریت اختصاصی)
+👑 برای مدیر (پنل مدیریت اختصاصی)
 
 قابلیت توضیح فنی
 📂 مدیریت دستهبندیها افزودن/ویرایش/حذف دسته در MongoDB
@@ -107,29 +112,29 @@
 📑 گزارش فروش فیلتر بر اساس وضعیت + خروجی Excel/PDF
 🔐 امنیت فقط کاربر ادمین دسترسی دارد
 
-انیمیشنها و جلوههای ویژه
+🎨 انیمیشنها و جلوههای ویژه
 
 بخش تکنولوژی
-پسزمینه سهبعدی Three.js (ذرات متحرک)
-انیمیشنهای نرم GSAP
-افکت شیشهای backdrop-filter + blur
-گرادیان متحرک CSS Animation
+🌌 پسزمینه سهبعدی Three.js (ذرات متحرک)
+✨ انیمیشنهای نرم GSAP
+🪟 افکت شیشهای backdrop-filter + blur
+🌈 گرادیان متحرک CSS Animation
 
 ---
 
 🛠️ تکنولوژیهای استفاده شده
 
 دسته تکنولوژیها
-Backend Django 5.0, PyMongo, pyodbc
-Frontend HTML5, CSS3, JavaScript (ES6), Three.js, GSAP
-Reporting OpenPyXL, ReportLab
-Scraping Selenium, BeautifulSoup
+🖥️ Backend Django 5.0, PyMongo, pyodbc
+🎨 Frontend HTML5, CSS3, JavaScript (ES6), Three.js, GSAP
+📊 Reporting OpenPyXL, ReportLab
+🕷️ Scraping Selenium, BeautifulSoup
 
 ---
 
 🚀 نصب و راهاندازی
 
-پیشنیازها
+📋 پیشنیازها
 
 ```bash
 Python 3.13+
@@ -138,12 +143,12 @@ SQL Server 2019+
 Git
 ```
 
-مراحل نصب
+⚙️ مراحل نصب
 
 ```bash
 # 1. کلون پروژه
-git clone https://github.com/YOUR_USERNAME/kiarash-market.git
-cd kiarash-market
+git clone https://github.com/Kiarash-sabbaghii-giit/KiarashMarket.git
+cd KiarashMarket
 
 # 2. ایجاد محیط مجازی
 python -m venv venv
@@ -166,7 +171,7 @@ python manage.py runserver
 
 ---
 
-🎯 مسیرهای اصلی API
+🔗 مسیرهای اصلی API
 
 متد مسیر توضیح
 GET /api/cart/count/ دریافت تعداد آیتمهای سبد خرید
@@ -176,7 +181,7 @@ GET /api/search-suggestions/?q= پیشنهادات جستجو
 
 ---
 
-🎯 مسیرهای اصلی سایت
+🗺️ مسیرهای اصلی سایت
 
 مسیر توضیح
 / صفحه اصلی
@@ -193,7 +198,7 @@ GET /api/search-suggestions/?q= پیشنهادات جستجو
 📁 ساختار پروژه
 
 ```
-KiarashMarketProject/
+KiarashMarket/
 ├── shop/
 │   ├── models.py
 │   ├── views.py
@@ -219,6 +224,7 @@ KiarashMarketProject/
 │   ├── cart.gif
 │   ├── checkout.gif
 │   └── admin.gif
+├── scraping/
 ├── requirements.txt
 └── manage.py
 ```
@@ -227,9 +233,9 @@ KiarashMarketProject/
 
 👨💻 توسعهدهنده
 
-Kiarash
+Kiarash Sabbaghii
 
-· 🐙 GitHub: @Kiarash-sabbaghii-giit
+https://img.shields.io/badge/GitHub-Kiarash--sabbaghii--giit-181717?logo=github
 
 ---
 
@@ -243,6 +249,5 @@ Kiarash
 
 ⭐ اگر از این پروژه خوشتان آمد، به آن ستاره دهید! ⭐
 
-ساخته شده با ❤️ در ایران
 
-</div> 
+</div>
