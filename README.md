@@ -3,7 +3,7 @@
 # 🛍️ KiarashMarket | فروشگاه آنلاین کیارش
 
 ![Django](https://img.shields.io/badge/Django-5.0-green?logo=django&style=flat-square)
-![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-brightgreen?logo=mongodb&style=flat-square)
+![MongoDB](https://img.shields.io/badge/MongoDB-compass-brightgreen?logo=mongodb&style=flat-square)
 ![SQL Server](https://img.shields.io/badge/SQL-Server-red?logo=microsoftsqlserver&style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
@@ -38,7 +38,7 @@
 | 🏷️ **نام پروژه** | `KiarashMarket` |
 | 🐍 **زبان برنامهنویسی** | Python 3.13 |
 | 🎯 **فریمورک** | Django 5.0 |
-| 🍃 **دیتابیس محصولات** | MongoDB Atlas |
+| 🍃 **دیتابیس محصولات** | MongoDB compass |
 | 🗄️ **دیتابیس کاربران و تراکنشها** | SQL Server |
 | ✅ **وضعیت** | کامل و آماده به کار |
 
@@ -50,14 +50,14 @@
 
 | دیتابیس | نقش | جداول/کالکشنها |
 |:--------|:----|:----------------|
-| 🍃 **MongoDB (NoSQL)** | ذخیره محصولات و دستهبندیها | `categories`, `snacks`, `spices`, `dairy`, `drinks` (15 کالکشن) |
-| 🗄️ **SQL Server (RDBMS)** | ذخیره اطلاعات کاربری و تراکنشها | `UserInfo`, `Cart`, `Order`, `OrderItem` |
+| 🍃 **MongoDB (NoSQL)** | ذخیره محصولات و دسته بندی ها | `categories`, `snacks`, `spices`, `dairy`, `drinks` (15 کالکشن) |
+| 🗄️ **SQL Server (RDBMS)** | ذخیره اطلاعات کاربری و تراکنش ها | `UserInfo`, `Cart`, `Order`, `OrderItem` |
 
 ### 💡 چرا این معماری؟
 
 | مزیت | توضیح |
 |:-----|:------|
-| 📈 **مقیاسپذیری** | اضافه کردن دسته جدید بدون نیاز به مایگریشن |
+| 📈 **مقیاس پذیری** | اضافه کردن دسته جدید بدون نیاز به مایگریشن |
 | 🔗 **یکپارچگی** | تراکنشهای مالی با قابلیت ACID |
 | ⚡ **عملکرد** | هر دیتابیس در حوزه تخصصی خود بهینه است |
 
@@ -138,7 +138,7 @@
 
 ```bash
 Python 3.13+
-MongoDB Atlas (یا محلی)
+MongoDB compass 
 SQL Server 2019+
 Git
 ```
@@ -231,11 +231,10 @@ KiarashMarket/
 
 ---
 
-👨💻 توسعهدهنده
+👨💻 توسعه دهنده
 
 Kiarash Sabbaghii
 
-https://img.shields.io/badge/GitHub-Kiarash--sabbaghii--giit-181717?logo=github
 
 ---
 
