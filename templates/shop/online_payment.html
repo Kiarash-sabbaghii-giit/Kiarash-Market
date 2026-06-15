@@ -1,0 +1,357 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}پرداخت آنلاین | KiarashMarket{% endblock %}
+
+{% block content %}
+<div class="payment-gateway-page">
+    <div class="payment-gateway-card">
+        <div class="gateway-header">
+            <div class="gateway-logo">
+                <i class="fas fa-lock"></i>
+                <span>درگاه امن زرینپال</span>
+            </div>
+            <h2>پرداخت آنلاین</h2>
+            <p>مبلغ قابل پرداخت: <strong class="amount">{{ order.total_amount }}</strong></p>
+        </div>
+
+        <form method="POST" id="paymentForm">
+            {% csrf_token %}
+
+            <div class="card-info">
+                <div class="form-group">
+                    <label>شماره کارت</label>
+                    <input type="text" id="cardNumber" maxlength="19" placeholder="****-****-****-6037" required>
+                    <i class="fas fa-credit-card"></i>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>تاریخ انقضا</label>
+                        <input type="text" id="expiry" maxlength="5" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CVV2</label>
+                        <input type="text" id="cvv" maxlength="4" placeholder="***" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>کد امنیتی</label>
+                    <div class="captcha-group">
+                        <input type="text" id="captcha" placeholder="کد امنیتی را وارد کنید" required>
+                        <div class="captcha-code" id="captchaCode"></div>
+                        <button type="button" id="refreshCaptcha" class="refresh-captcha">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="secure-badge">
+                <i class="fas fa-shield-alt"></i>
+                <span>ارتباط شما امن است</span>
+            </div>
+
+            <button type="submit" class="pay-now-btn" id="payNowBtn">
+                <i class="fas fa-check-circle"></i>
+                پرداخت {{ order.total_amount }}
+            </button>
+
+            <button type="button" class="back-btn" onclick="window.location.href='{% url 'checkout' %}'">
+                <i class="fas fa-arrow-right"></i>
+                بازگشت
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .payment-gateway-page {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: calc(100vh - 80px);
+        display: flex;
+        align-items: center;
+    }
+
+    .payment-gateway-card {
+        background: rgba(20,20,35,0.8);
+        backdrop-filter: blur(20px);
+        border-radius: 30px;
+        border: 1px solid rgba(139,92,246,0.3);
+        padding: 2rem;
+        width: 100%;
+    }
+
+    .gateway-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .gateway-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(16,185,129,0.15);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        margin-bottom: 1rem;
+    }
+
+    .gateway-logo i {
+        color: #10b981;
+    }
+
+    .gateway-logo span {
+        font-size: 0.8rem;
+        color: #10b981;
+    }
+
+    .gateway-header h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .gateway-header .amount {
+        color: #f59e0b;
+        font-size: 1.2rem;
+    }
+
+    .card-info {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+        position: relative;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.7);
+        margin-bottom: 0.3rem;
+    }
+
+    .form-group input {
+        width: 100%;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(139,92,246,0.3);
+        border-radius: 12px;
+        padding: 0.8rem 1rem 0.8rem 2.5rem;
+        color: white;
+        outline: none;
+        font-size: 1rem;
+    }
+
+    .form-group input:focus {
+        border-color: #a855f7;
+    }
+
+    .form-group i {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        color: #a855f7;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .captcha-group {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .captcha-group input {
+        flex: 1;
+        padding: 0.8rem 1rem;
+    }
+
+    .captcha-code {
+        width: 100px;
+        height: 45px;
+        background: linear-gradient(135deg, #1a1a2e, #0a0a0f);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        letter-spacing: 3px;
+        font-family: monospace;
+        color: #a855f7;
+        border: 1px solid rgba(139,92,246,0.3);
+    }
+
+    .refresh-captcha {
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
+        background: rgba(139,92,246,0.2);
+        border: 1px solid rgba(139,92,246,0.3);
+        color: #a855f7;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .refresh-captcha:hover {
+        background: rgba(139,92,246,0.4);
+    }
+
+    .secure-badge {
+        text-align: center;
+        margin: 1rem 0;
+        color: rgba(255,255,255,0.4);
+        font-size: 0.7rem;
+    }
+
+    .pay-now-btn {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(135deg, #10b981, #059669);
+        border: none;
+        border-radius: 50px;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-bottom: 0.8rem;
+        transition: 0.3s;
+    }
+
+    .pay-now-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(16,185,129,0.3);
+    }
+
+    .back-btn {
+        width: 100%;
+        padding: 0.8rem;
+        background: transparent;
+        border: 1px solid rgba(139,92,246,0.3);
+        border-radius: 50px;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .back-btn:hover {
+        background: rgba(139,92,246,0.1);
+    }
+</style>
+
+<script>
+    // Generate random captcha
+    function generateCaptcha() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+        let captcha = '';
+        for (let i = 0; i < 6; i++) {
+            captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        document.getElementById('captchaCode').textContent = captcha;
+        return captcha;
+    }
+
+    let currentCaptcha = generateCaptcha();
+
+    document.getElementById('refreshCaptcha').addEventListener('click', () => {
+        currentCaptcha = generateCaptcha();
+    });
+
+    // Format card number
+    document.getElementById('cardNumber').addEventListener('input', function(e) {
+        let value = this.value.replace(/\D/g, '');
+        if (value.length > 16) value = value.slice(0, 16);
+        let formatted = '';
+        for (let i = 0; i < value.length; i++) {
+            if (i > 0 && i % 4 === 0) formatted += '-';
+            formatted += value[i];
+        }
+        this.value = formatted;
+    });
+
+    // Format expiry
+    document.getElementById('expiry').addEventListener('input', function(e) {
+        let value = this.value.replace(/\D/g, '');
+        if (value.length > 4) value = value.slice(0, 4);
+        if (value.length > 2) {
+            this.value = value.slice(0, 2) + '/' + value.slice(2);
+        } else {
+            this.value = value;
+        }
+    });
+
+    // Payment form submit
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const cardNumber = document.getElementById('cardNumber').value.replace(/-/g, '');
+        const expiry = document.getElementById('expiry').value;
+        const cvv = document.getElementById('cvv').value;
+        const captcha = document.getElementById('captcha').value;
+
+        if (cardNumber.length !== 16) {
+            showToast('شماره کارت نامعتبر است', true);
+            return;
+        }
+
+        if (!expiry.match(/^\d{2}\/\d{2}$/)) {
+            showToast('تاریخ انقضا نامعتبر است', true);
+            return;
+        }
+
+        if (cvv.length < 3) {
+            showToast('CVV2 نامعتبر است', true);
+            return;
+        }
+
+        if (captcha !== currentCaptcha) {
+            showToast('کد امنیتی اشتباه است', true);
+            currentCaptcha = generateCaptcha();
+            document.getElementById('captcha').value = '';
+            return;
+        }
+
+        // Show loading
+        const btn = document.querySelector('.pay-now-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال پردازش...';
+        btn.disabled = true;
+
+        // Simulate payment processing
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            showToast('✅ پرداخت با موفقیت انجام شد!');
+            setTimeout(() => {
+                window.location.href = `/process-payment/{{ order.id }}/`;
+            }, 1500);
+        }, 2000);
+    });
+
+    function showToast(msg, isError) {
+        const toast = document.createElement('div');
+        toast.innerHTML = msg;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: ${isError ? '#ef4444' : '#10b981'};
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            color: white;
+            z-index: 10000;
+            font-size: 0.85rem;
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2500);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,354 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}دسته بندی ها | KiarashMarket{% endblock %}
+
+{% block content %}
+<div class="categories-page">
+    <div class="categories-header">
+        <div class="categories-title-wrapper">
+            <div class="title-icon">
+                <i class="fas fa-th-large"></i>
+            </div>
+            <h1>دسته بندی <span class="gradient">فروشگاه</span></h1>
+            <p>از بین {{ categories|length }} دسته بندی ، انتخاب کن</p>
+        </div>
+    </div>
+
+    <div class="categories-grid">
+        {% for category in categories %}
+        <div class="category-card" data-category="{{ category.category_en }}">
+            <div class="card-inner">
+                <div class="category-image">
+                    {% if category.image_url %}
+                        <img src="{{ category.image_url }}" alt="{{ category.category_fa }}" loading="lazy" onerror="this.src='https://placehold.co/400x400/1a1a2e/a855f7?text={{ category.category_fa|urlencode }}'">
+                    {% else %}
+                        <div class="no-image">
+                            <i class="fas fa-store"></i>
+                            <span>{{ category.category_fa }}</span>
+                        </div>
+                    {% endif %}
+                    <div class="category-overlay">
+                        <div class="overlay-content">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>مشاهده</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-info">
+                    <h3>{{ category.category_fa }}</h3>
+                    <p>{{ category.category_en }}</p>
+                    <div class="category-hover-line"></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .categories-page {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: calc(100vh - 80px);
+    }
+
+    /* Header */
+    .categories-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .categories-title-wrapper {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.1));
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 40px;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .categories-title-wrapper::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(139,92,246,0.1), transparent);
+        animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .title-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .categories-title-wrapper h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .gradient {
+        background: linear-gradient(135deg, #a855f7, #22d3ee);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .categories-title-wrapper p {
+        color: rgba(255,255,255,0.5);
+        font-size: 0.9rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Grid */
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1.5rem;
+    }
+
+    /* Card */
+    .category-card {
+        background: rgba(20, 20, 35, 0.4);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        position: relative;
+    }
+
+    .category-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: rgba(139, 92, 246, 0.6);
+        box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+    }
+
+    .card-inner {
+        position: relative;
+    }
+
+    /* Image */
+    .category-image {
+        position: relative;
+        width: 100%;
+        padding-top: 100%;
+        overflow: hidden;
+        background: linear-gradient(135deg, #1a1a2e, #0a0a0f);
+    }
+
+    .category-image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .category-card:hover .category-image img {
+        transform: scale(1.1);
+    }
+
+    .no-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #1a1a2e, #0a0a0f);
+    }
+
+    .no-image i {
+        font-size: 3rem;
+        color: #a855f7;
+        margin-bottom: 0.5rem;
+    }
+
+    .no-image span {
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.5);
+    }
+
+    /* Overlay */
+    .category-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(139, 92, 246, 0.7);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .category-card:hover .category-overlay {
+        opacity: 1;
+    }
+
+    .overlay-content {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: white;
+        padding: 0.5rem 1.2rem;
+        border-radius: 50px;
+        color: #8b5cf6;
+        font-weight: 600;
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+    }
+
+    .category-card:hover .overlay-content {
+        transform: translateY(0);
+    }
+
+    .overlay-content i {
+        font-size: 0.9rem;
+    }
+
+    /* Info */
+    .category-info {
+        padding: 1rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .category-info h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+        color: white;
+    }
+
+    .category-info p {
+        font-size: 0.65rem;
+        color: rgba(255,255,255,0.4);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .category-hover-line {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #a855f7, #22d3ee);
+        transition: width 0.3s ease;
+        border-radius: 2px;
+    }
+
+    .category-card:hover .category-hover-line {
+        width: 50px;
+    }
+
+    /* Animations */
+    .category-card {
+        animation: fadeInScale 0.5s ease forwards;
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    @keyframes fadeInScale {
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    {% for category in categories %}
+    .category-card:nth-child({{ forloop.counter }}) {
+        animation-delay: {{ forloop.counter|add:"0.03" }}s;
+    }
+    {% endfor %}
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+        .categories-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @media (max-width: 900px) {
+        .categories-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .categories-title-wrapper h1 {
+            font-size: 1.5rem;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .categories-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .categories-page {
+            padding: 1rem;
+        }
+        .category-info h3 {
+            font-size: 0.85rem;
+        }
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.category-card').forEach((card, index) => {
+        card.addEventListener('click', function() {
+            const category = this.dataset.category;
+            const categoryName = this.querySelector('.category-info h3').innerText;
+
+            // Animation on click
+            gsap.to(this, { scale: 0.95, duration: 0.1, yoyo: true, repeat: 1 });
+
+            // Go to products page
+            setTimeout(() => {
+                window.location.href = `/category/${category}/`;
+            }, 200);
+        });
+    });
+
+    // Add hover effect
+    document.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            gsap.to(card, { scale: 1.02, duration: 0.2 });
+        });
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, { scale: 1, duration: 0.2 });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+../.venv/
+ENV/
+
+# Django
+*.log
+*.pot
+*.pyc
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+.DS_Store
+
+# Secrets & Keys
+.env
+*.pem
+*.key
+config.py
+secrets.json
+settings_local.py
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Project specific
+mongodb_backup/
+*.db
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# MongoDB (اطلاعات دیتابیس)
+mongodb-connection.txt

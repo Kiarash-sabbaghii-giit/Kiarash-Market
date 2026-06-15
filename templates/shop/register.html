@@ -1,0 +1,225 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}ثبت‌ نام | KiarashMarket{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card-modern">
+        <div class="auth-header-modern">
+            <div class="auth-icon-modern">
+                <i class="fas fa-user-astronaut"></i>
+            </div>
+            <h2>ثبت‌نام</h2>
+            <p>به خانواده کیارش مارکت بپیوندید</p>
+        </div>
+
+        <form method="POST" class="auth-form-modern">
+            {% csrf_token %}
+
+            <div class="input-group-modern">
+                <input type="text" name="first_name" id="first_name" required>
+                <label>نام</label>
+                <i class="fas fa-user input-icon-modern"></i>
+            </div>
+
+            <div class="input-group-modern">
+                <input type="text" name="last_name" id="last_name" required>
+                <label>نام خانوادگی</label>
+                <i class="fas fa-user-friends input-icon-modern"></i>
+            </div>
+
+            <div class="input-group-modern">
+                <input type="tel" name="phone" id="phone" required>
+                <label>تلفن همراه</label>
+                <i class="fas fa-mobile-alt input-icon-modern"></i>
+            </div>
+
+            <div class="input-group-modern">
+                <input type="tel" name="home_phone" id="home_phone">
+                <label>تلفن ثابت (اختیاری)</label>
+                <i class="fas fa-phone input-icon-modern"></i>
+            </div>
+
+            <div class="input-group-modern">
+                <textarea name="address" id="address" rows="3" required></textarea>
+                <label>آدرس دقیق</label>
+                <i class="fas fa-map-marker-alt input-icon-modern"></i>
+            </div>
+
+            <div class="row-2-modern">
+                <div class="input-group-modern">
+                    <input type="text" name="plaque" id="plaque">
+                    <label>پلاک</label>
+                    <i class="fas fa-hashtag input-icon-modern"></i>
+                </div>
+                <div class="input-group-modern">
+                    <input type="text" name="unit" id="unit">
+                    <label>واحد</label>
+                    <i class="fas fa-building input-icon-modern"></i>
+                </div>
+            </div>
+
+            <button type="submit" class="auth-btn-modern">
+                <span>ثبت‌نام</span>
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </form>
+
+        <div class="auth-footer-modern">
+            <span>قبلاً ثبت‌نام کردی؟</span>
+            <a href="{% url 'login' %}">وارد شو</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .auth-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+    }
+
+    .auth-card-modern {
+        background: rgba(15, 15, 25, 0.8);
+        backdrop-filter: blur(20px);
+        border-radius: 30px;
+        padding: 2rem;
+        width: 100%;
+        max-width: 500px;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .auth-header-modern {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .auth-icon-modern {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 2rem;
+    }
+
+    .auth-header-modern h2 {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .input-group-modern {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+
+    .input-group-modern input,
+    .input-group-modern textarea {
+        width: 100%;
+        padding: 1rem 2.5rem 0.5rem 1rem;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 15px;
+        color: white;
+        font-size: 1rem;
+        outline: none;
+        transition: 0.3s;
+        font-family: inherit;
+    }
+
+    .input-group-modern textarea {
+        resize: vertical;
+    }
+
+    .input-group-modern label {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        color: rgba(255,255,255,0.5);
+        transition: 0.3s;
+        pointer-events: none;
+    }
+
+    .input-group-modern input:focus ~ label,
+    .input-group-modern input:valid ~ label,
+    .input-group-modern textarea:focus ~ label,
+    .input-group-modern textarea:valid ~ label {
+        top: -0.5rem;
+        right: 0.8rem;
+        font-size: 0.8rem;
+        color: #a855f7;
+        background: #0a0a0f;
+        padding: 0 0.3rem;
+    }
+
+    .input-group-modern input:focus,
+    .input-group-modern textarea:focus {
+        border-color: #a855f7;
+        box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+    }
+
+    .input-icon-modern {
+        position: absolute;
+        left: 1rem;
+        bottom: 1rem;
+        color: rgba(255,255,255,0.3);
+        font-size: 1rem;
+    }
+
+    .row-2-modern {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .auth-btn-modern {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+        border: none;
+        border-radius: 50px;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+    }
+
+    .auth-btn-modern:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+    }
+
+    .auth-footer-modern {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: rgba(255,255,255,0.5);
+    }
+
+    .auth-footer-modern a {
+        color: #a855f7;
+        text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+        .auth-card-modern {
+            padding: 1.5rem;
+        }
+        .row-2-modern {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+    }
+</style>
+{% endblock %}

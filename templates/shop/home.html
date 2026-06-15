@@ -1,0 +1,145 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}صفحه اصلی | KiarashMarket{% endblock %}
+
+{% block content %}
+<div class="hero-section" style="text-align: center; width: 100%;">
+
+    <h1 style="font-size: 3.5rem; margin-bottom: 1rem; opacity: 0;" class="fade-in-up delay-1">
+        <span style="background: linear-gradient(135deg, #a855f7, #22d3ee, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent;">خرید مدرن</span><br>
+        با <span style="color: #a855f7; text-shadow: 0 0 20px #a855f7;">کیارش مارکت</span>
+    </h1>
+
+    <p style="font-size: 1.2rem; color: rgba(255,255,255,0.7); margin-bottom: 2.5rem; opacity: 0;" class="fade-in-up delay-2">
+        تجربه‌ای لوکس و سریع از خرید آنلاین<br>
+        با بهترین قیمت‌ها و ضمانت کیفیت
+    </p>
+
+    <div style="display: flex; gap: 1rem; justify-content: center; opacity: 0; margin-bottom: 3.5rem;" class="fade-in-up delay-3">
+        <button class="btn-glow" id="startBtn">
+            شروع کنید <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <div style="display: flex; gap: 2rem; margin-top: 0; justify-content: center; flex-wrap: wrap; opacity: 0;" class="fade-in-up delay-4">
+        <div class="service-card">
+            <i class="fas fa-truck-fast"></i>
+            <span>ارسال سریع</span>
+        </div>
+        <div class="service-card">
+            <i class="fas fa-shield-alt"></i>
+            <span>ضمانت بازگشت</span>
+        </div>
+        <div class="service-card">
+            <i class="fas fa-headset"></i>
+            <span>پشتیبانی ۲۴/۷</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    .fade-in-up {
+        animation: fadeInUp 0.8s ease forwards;
+    }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .btn-glow {
+        background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+        border: none;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        color: white;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .btn-glow i {
+        transition: transform 0.3s ease;
+    }
+
+    .btn-glow:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+    }
+
+    .btn-glow:hover i {
+        transform: translateX(-5px);
+    }
+
+    .btn-glow:active {
+        transform: scale(0.98);
+    }
+
+    .service-card {
+        background: rgba(20, 20, 35, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 0.8rem 1.5rem;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        border-color: #a855f7;
+        box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2);
+    }
+
+    .service-card i {
+        color: #a855f7;
+        font-size: 1.2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-section h1 {
+            font-size: 2.2rem !important;
+        }
+        .hero-section p {
+            font-size: 1rem !important;
+        }
+        .btn-glow {
+            padding: 0.8rem 1.8rem;
+            font-size: 0.9rem;
+        }
+        .service-card {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+    }
+</style>
+
+<script>
+    document.getElementById('startBtn')?.addEventListener('click', function() {
+        gsap.to(this, { scale: 0.95, duration: 0.1, yoyo: true, repeat: 1 });
+        setTimeout(() => {
+            window.location.href = "{% url 'categories' %}";
+        }, 200);
+    });
+</script>
+{% endblock %}

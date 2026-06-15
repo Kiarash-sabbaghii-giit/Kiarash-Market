@@ -1,0 +1,417 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}تسویه حساب | KiarashMarket{% endblock %}
+
+{% block content %}
+<div class="checkout-page">
+    <div class="checkout-header">
+        <i class="fas fa-credit-card"></i>
+        <h1>تسویه حساب</h1>
+        <p>روش پرداخت خود را انتخاب کنید</p>
+    </div>
+
+    <div class="checkout-container">
+        <form method="POST" class="checkout-form" id="checkoutForm">
+            {% csrf_token %}
+
+            <div class="form-section">
+                <h3><i class="fas fa-user"></i> اطلاعات شخصی</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>نام و نام خانوادگی</label>
+                        <input type="text" value="{{ user.first_name }} {{ user.last_name }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>شماره همراه</label>
+                        <input type="text" value="{{ user.phone }}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>ایمیل (اختیاری)</label>
+                    <input type="email" name="email" value="{{ user.email|default:'' }}">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3><i class="fas fa-map-marker-alt"></i> آدرس تحویل</h3>
+                <div class="form-group">
+                    <label>آدرس کامل</label>
+                    <textarea name="address" rows="3" required>{{ user.address }}</textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>پلاک</label>
+                        <input type="text" name="plaque" value="{{ user.plaque|default:'' }}">
+                    </div>
+                    <div class="form-group">
+                        <label>واحد</label>
+                        <input type="text" name="unit" value="{{ user.unit|default:'' }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3><i class="fas fa-shopping-bag"></i> محصولات</h3>
+                {% for item in cart_items %}
+                <div class="checkout-item">
+                    <img src="{{ item.product_image }}" alt="{{ item.product_name }}" onerror="this.src='https://placehold.co/60x60/1a1a2e/a855f7'">
+                    <div class="checkout-item-info">
+                        <h4>{{ item.product_name }}</h4>
+                        <p>{{ item.product_price }}</p>
+                    </div>
+                    <div class="checkout-item-qty">
+                        x{{ item.quantity }}
+                    </div>
+                    <div class="checkout-item-price">
+                        {{ item.get_total }} تومان
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="payment-methods">
+                <h3><i class="fas fa-money-bill-wave"></i> روش پرداخت</h3>
+                <div class="payment-options">
+                    <label class="payment-option active">
+                        <input type="radio" name="payment_method" value="online" checked>
+                        <div class="payment-option-content">
+                            <i class="fas fa-credit-card"></i>
+                            <span>پرداخت آنلاین</span>
+                            <small>درگاه امن زرینپال</small>
+                        </div>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment_method" value="cod">
+                        <div class="payment-option-content">
+                            <i class="fas fa-truck"></i>
+                            <span>پرداخت در محل</span>
+                            <small>هنگام تحویل سفارش</small>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>جمع کل:</span>
+                    <span>{{ total }}</span>
+                </div>
+                <div class="summary-row total">
+                    <span>قابل پرداخت:</span>
+                    <span>{{ total }}</span>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-order-btn" id="submitOrderBtn">
+                <i class="fas fa-check-circle"></i>
+                ادامه و پرداخت
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .checkout-page {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: calc(100vh - 80px);
+    }
+
+    .checkout-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .checkout-header i {
+        font-size: 2.5rem;
+        color: #a855f7;
+        margin-bottom: 0.5rem;
+    }
+
+    .checkout-header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .checkout-header p {
+        color: rgba(255,255,255,0.5);
+    }
+
+    .checkout-container {
+        background: rgba(20,20,35,0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        border: 1px solid rgba(139,92,246,0.2);
+        padding: 2rem;
+    }
+
+    .form-section {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(139,92,246,0.1);
+    }
+
+    .form-section h3 {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .form-section h3 i {
+        color: #a855f7;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
+        color: rgba(255,255,255,0.7);
+    }
+
+    .form-group input,
+    .form-group textarea {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(139,92,246,0.3);
+        border-radius: 12px;
+        padding: 0.8rem;
+        color: white;
+        outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #a855f7;
+    }
+
+    .form-group input[readonly] {
+        background: rgba(255,255,255,0.02);
+        color: rgba(255,255,255,0.6);
+    }
+
+    .checkout-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(139,92,246,0.1);
+    }
+
+    .checkout-item img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        background: #1a1a2e;
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    .checkout-item-info {
+        flex: 2;
+    }
+
+    .checkout-item-info h4 {
+        font-size: 0.85rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .checkout-item-info p {
+        font-size: 0.75rem;
+        color: #a855f7;
+    }
+
+    .checkout-item-qty {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #f59e0b;
+    }
+
+    .checkout-item-price {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #f59e0b;
+        min-width: 100px;
+        text-align: right;
+    }
+
+    .payment-methods {
+        margin-bottom: 1.5rem;
+    }
+
+    .payment-methods h3 {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .payment-methods h3 i {
+        color: #a855f7;
+    }
+
+    .payment-options {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .payment-option {
+        flex: 1;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .payment-option input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .payment-option-content {
+        background: rgba(255,255,255,0.05);
+        border: 2px solid rgba(139,92,246,0.2);
+        border-radius: 16px;
+        padding: 1rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .payment-option.active .payment-option-content {
+        border-color: #10b981;
+        background: rgba(16,185,129,0.1);
+    }
+
+    .payment-option-content i {
+        font-size: 1.8rem;
+        color: #a855f7;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .payment-option-content span {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+    }
+
+    .payment-option-content small {
+        font-size: 0.7rem;
+        color: rgba(255,255,255,0.5);
+    }
+
+    .order-summary {
+        background: rgba(0,0,0,0.3);
+        border-radius: 16px;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+    }
+
+    .summary-row.total {
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-top: 1px solid rgba(139,92,246,0.2);
+        margin-top: 0.5rem;
+        padding-top: 0.8rem;
+        color: #f59e0b;
+    }
+
+    .submit-order-btn {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(135deg, #10b981, #059669);
+        border: none;
+        border-radius: 50px;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: 0.3s;
+        margin-top: 1rem;
+    }
+
+    .submit-order-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(16,185,129,0.3);
+    }
+
+    @media (max-width: 600px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        .checkout-page {
+            padding: 1rem;
+        }
+        .checkout-container {
+            padding: 1.5rem;
+        }
+        .payment-options {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<script>
+    // Highlight selected payment method
+    document.querySelectorAll('.payment-option input').forEach(radio => {
+        radio.addEventListener('change', function() {
+            document.querySelectorAll('.payment-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            this.closest('.payment-option').classList.add('active');
+        });
+    });
+
+    // Form submission
+    document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+        const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+
+        if (paymentMethod === 'cod') {
+            // پرداخت در محل - مستقیم ثبت سفارش
+            return true;
+        }
+        // پرداخت آنلاین
+        return true;
+    });
+
+    function showToast(msg, isError) {
+        const toast = document.createElement('div');
+        toast.innerHTML = msg;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: ${isError ? '#ef4444' : '#10b981'};
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            color: white;
+            z-index: 10000;
+            font-size: 0.85rem;
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2500);
+    }
+</script>
+{% endblock %}

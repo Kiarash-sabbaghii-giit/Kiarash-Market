@@ -1,0 +1,259 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}درباره ما | KiarashMarket{% endblock %}
+
+{% block content %}
+<div class="about-modern">
+    <div class="about-header">
+        <div class="about-icon">
+            <i class="fas fa-crown"></i>
+        </div>
+        <h1 class="about-title">درباره <span class="gradient-text">کیارش مارکت</span></h1>
+        <p class="typewriter-text" id="typewriter"></p>
+    </div>
+
+    <div class="about-grid">
+        <div class="about-card-glass" data-aos="fade-up">
+            <i class="fas fa-copyright icon-gradient"></i>
+            <h3>حقوق کپیرایت</h3>
+            <p>تمامی حقوق مادی و معنوی این سایت متعلق به <strong>KiarashMarket</strong> میباشد. هرگونه کپیبرداری پیگرد قانونی دارد.</p>
+        </div>
+
+        <div class="about-card-glass" data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-heart icon-gradient"></i>
+            <h3>ارزش مشتریان</h3>
+            <p>ما به مشتریان خود به عنوان ارزشمندترین سرمایه نگاه میکنیم. کیفیت، سرعت و احترام، سه اصل اصلی ماست.</p>
+        </div>
+
+        <div class="about-card-glass" data-aos="fade-up" data-aos-delay="200">
+            <i class="fas fa-chart-line icon-gradient"></i>
+            <h3>چشمانداز ۲۰۳۰</h3>
+            <p>تلاش برای تبدیل شدن به بزرگترین پلتفرم خرید آنلاین هوشمند در منطقه</p>
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-item" data-aos="zoom-in">
+            <span class="stat-number" data-target="1250">0</span>
+            <span class="stat-label">مشتری راضی</span>
+        </div>
+        <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
+            <span class="stat-number" data-target="98">0</span>
+            <span class="stat-label">درصد رضایت</span>
+        </div>
+        <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
+            <span class="stat-number" data-target="24">0</span>
+            <span class="stat-label">پشتیبانی ساعته</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    .about-modern {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        width: 100%;
+    }
+
+    .about-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .about-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 2.5rem;
+    }
+
+    .about-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .gradient-text {
+        background: linear-gradient(135deg, #a855f7, #22d3ee);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .typewriter-text {
+        font-size: 1.1rem;
+        color: rgba(255,255,255,0.7);
+        min-height: 3rem;
+    }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .about-card-glass {
+        background: rgba(20, 20, 35, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 20px;
+        text-align: center;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .about-card-glass.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .about-card-glass:hover {
+        transform: translateY(-5px);
+        border-color: #a855f7;
+        box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+    }
+
+    .icon-gradient {
+        font-size: 2.5rem;
+        background: linear-gradient(135deg, #a855f7, #22d3ee);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 1rem;
+    }
+
+    .stats-row {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .stat-item {
+        text-align: center;
+        opacity: 0;
+        transform: scale(0.8);
+        transition: all 0.5s ease;
+    }
+
+    .stat-item.visible {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #a855f7, #22d3ee);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .stat-label {
+        display: block;
+        color: rgba(255,255,255,0.6);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .about-modern {
+            padding: 1rem;
+        }
+        .about-grid {
+            grid-template-columns: 1fr;
+        }
+        .stats-row {
+            gap: 1.5rem;
+        }
+    }
+</style>
+
+<script>
+    // Typewriter effect
+    const phrases = [
+        "جایی که کیفیت با اعتماد گره خورده",
+        "تجربهای متفاوت از خرید آنلاین",
+        "همراه شما از ۱۳۹۹ تا امروز"
+    ];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typewriterElement = document.getElementById('typewriter');
+
+    function typeEffect() {
+        const currentPhrase = phrases[phraseIndex];
+        if (isDeleting) {
+            typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+            charIndex++;
+        }
+
+        if (!isDeleting && charIndex === currentPhrase.length) {
+            isDeleting = true;
+            setTimeout(typeEffect, 2000);
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            setTimeout(typeEffect, 500);
+        } else {
+            setTimeout(typeEffect, isDeleting ? 50 : 100);
+        }
+    }
+    typeEffect();
+
+    // Scroll animations
+    const observerOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.about-card-glass, .stat-item').forEach(el => observer.observe(el));
+
+    // Animate numbers
+    const animateNumbers = () => {
+        document.querySelectorAll('.stat-number').forEach(counter => {
+            const target = parseInt(counter.dataset.target);
+            let current = 0;
+            const increment = target / 50;
+            const updateCounter = () => {
+                if (current < target) {
+                    current += increment;
+                    counter.innerText = Math.ceil(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCounter();
+        });
+    };
+
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateNumbers();
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelector('.stats-row') && statsObserver.observe(document.querySelector('.stats-row'));
+</script>
+{% endblock %}

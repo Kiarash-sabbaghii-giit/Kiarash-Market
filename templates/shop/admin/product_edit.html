@@ -1,0 +1,168 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}ویرایش محصول | پنل مدیریت{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <div class="admin-sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-crown"></i>
+            <h3>پنل مدیریت</h3>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{% url 'admin_categories' %}" class="nav-item">
+                <i class="fas fa-tags"></i>
+                <span>دسته‌بندی‌ها</span>
+            </a>
+            <a href="{% url 'admin_products' %}" class="nav-item active">
+                <i class="fas fa-box"></i>
+                <span>محصولات</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="admin-main">
+        <div class="admin-header">
+            <h1><i class="fas fa-edit"></i> ویرایش محصول</h1>
+            <a href="{% url 'admin_products' category_en=category_en %}" class="btn-back">
+                <i class="fas fa-arrow-right"></i> بازگشت
+            </a>
+        </div>
+
+        <div class="product-form-glass">
+            <div class="form-header">
+                <i class="fas fa-tag"></i>
+                <h3>دسته‌بندی: {{ category_en }}</h3>
+            </div>
+
+            <form method="POST" class="product-form">
+                {% csrf_token %}
+
+                <div class="input-group-glass">
+                    <i class="fas fa-box"></i>
+                    <input type="text" name="name" value="{{ product.name }}" placeholder="نام محصول" required>
+                </div>
+
+                <div class="input-group-glass">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <input type="text" name="price" value="{{ product.price }}" placeholder="قیمت" required>
+                </div>
+
+                <div class="input-group-glass">
+                    <i class="fas fa-image"></i>
+                    <input type="url" name="image_url" value="{{ product.image_url }}" placeholder="آدرس عکس" required>
+                </div>
+
+                <div class="input-group-glass">
+                    <i class="fas fa-store"></i>
+                    <input type="text" name="store" value="{{ product.store|default:'' }}" placeholder="فروشنده">
+                </div>
+
+                <div class="input-group-glass">
+                    <i class="fas fa-cubes"></i>
+                    <input type="number" name="stock" value="{{ product.stock|default:100 }}" placeholder="موجودی">
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-save"></i> ذخیره تغییرات
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-form-glass {
+        background: rgba(20, 20, 35, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        padding: 2rem;
+        max-width: 600px;
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .form-header i {
+        font-size: 2rem;
+        color: #f59e0b;
+    }
+
+    .btn-back {
+        background: rgba(107, 114, 128, 0.2);
+        border: 1px solid rgba(107,114,128,0.3);
+        padding: 0.6rem 1.2rem;
+        border-radius: 50px;
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: 0.3s;
+    }
+
+    .btn-back:hover {
+        background: rgba(107,114,128,0.4);
+    }
+
+    .input-group-glass {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+
+    .input-group-glass i {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #a855f7;
+        font-size: 1.1rem;
+    }
+
+    .input-group-glass input {
+        width: 100%;
+        padding: 1rem 3rem 1rem 1rem;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(139,92,246,0.3);
+        border-radius: 15px;
+        color: white;
+        outline: none;
+        font-size: 0.95rem;
+        transition: 0.3s;
+    }
+
+    .input-group-glass input:focus {
+        border-color: #a855f7;
+        box-shadow: 0 0 15px rgba(139,92,246,0.3);
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        border: none;
+        border-radius: 50px;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: 0.3s;
+        margin-top: 1rem;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(59,130,246,0.3);
+    }
+</style>
+{% endblock %}

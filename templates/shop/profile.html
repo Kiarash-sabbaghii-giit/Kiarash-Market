@@ -1,0 +1,204 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}مشخصات فردی | KiarashMarket{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-icon">
+                <i class="fas fa-id-card"></i>
+            </div>
+            <h1>مشخصات فردی</h1>
+            <p>اطلاعات خود را ویرایش کنید</p>
+        </div>
+
+        <form method="POST" class="profile-form">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>نام</label>
+                    <input type="text" name="first_name" value="{{ user.first_name }}" required>
+                </div>
+                <div class="form-group">
+                    <label>نام خانوادگی</label>
+                    <input type="text" name="last_name" value="{{ user.last_name }}" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>شماره همراه</label>
+                    <input type="tel" value="{{ user.phone }}" disabled class="disabled-input">
+                    <small>شماره همراه قابل ویرایش نیست</small>
+                </div>
+                <div class="form-group">
+                    <label>ایمیل</label>
+                    <input type="email" name="email" value="{{ user.email|default:'' }}">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>کد ملی</label>
+                    <input type="text" name="national_code" value="{{ user.national_code|default:'' }}" maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label>تاریخ تولد</label>
+                    <input type="date" name="birth_date" value="{{ user.birth_date|date:'Y-m-d'|default:'' }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>آدرس</label>
+                <textarea name="address" rows="3">{{ user.address }}</textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>پلاک</label>
+                    <input type="text" name="plaque" value="{{ user.plaque|default:'' }}">
+                </div>
+                <div class="form-group">
+                    <label>واحد</label>
+                    <input type="text" name="unit" value="{{ user.unit|default:'' }}">
+                </div>
+                <div class="form-group">
+                    <label>تلفن ثابت</label>
+                    <input type="tel" name="home_phone" value="{{ user.home_phone|default:'' }}">
+                </div>
+            </div>
+
+            <button type="submit" class="save-btn">
+                <i class="fas fa-save"></i>
+                ذخیره تغییرات
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .profile-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        width: 100%;
+    }
+
+    .profile-card {
+        background: rgba(20, 20, 35, 0.8);
+        backdrop-filter: blur(20px);
+        border-radius: 30px;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        padding: 2rem;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .profile-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 2.5rem;
+    }
+
+    .profile-header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .profile-header p {
+        color: rgba(255,255,255,0.5);
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;margin-bottom: 1rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
+        color: rgba(255,255,255,0.7);
+    }
+
+    .form-group input,
+    .form-group textarea {
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 12px;
+        padding: 0.8rem;
+        color: white;
+        font-size: 0.9rem;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #a855f7;
+        box-shadow: 0 0 10px rgba(139,92,246,0.3);
+    }
+
+    .disabled-input {
+        background: rgba(255,255,255,0.05) !important;
+        color: rgba(255,255,255,0.4) !important;
+        cursor: not-allowed;
+    }
+
+    .form-group small {
+        font-size: 0.7rem;
+        color: rgba(255,255,255,0.4);
+    }
+
+    .save-btn {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+        border: none;
+        border-radius: 50px;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: 0.3s;
+        margin-top: 1rem;
+    }
+
+    .save-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(139,92,246,0.3);
+    }
+
+    @media (max-width: 600px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        .profile-container {
+            padding: 1rem;
+        }
+        .profile-card {
+            padding: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}

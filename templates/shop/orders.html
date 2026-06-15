@@ -1,0 +1,326 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}تاریخچه سفارشات | KiarashMarket{% endblock %}
+
+{% block content %}
+<div class="orders-page">
+    <div class="orders-header">
+        <i class="fas fa-history"></i>
+        <h1>تاریخچه سفارشات</h1>
+        <p>سفارشات قبلی شما</p>
+    </div>
+
+    {% if orders %}
+    <div class="orders-list">
+        {% for order in orders %}
+        <div class="order-card">
+            <div class="order-header">
+                <div class="order-number">
+                    <i class="fas fa-receipt"></i>
+                    سفارش #{{ order.id }}
+                </div>
+                <div class="order-date">
+                    <i class="fas fa-calendar-alt"></i>
+                    {{ order.created_at|date:"Y/m/d - H:i" }}
+                </div>
+                <div class="order-status status-{{ order.status }}">
+                    {% if order.status == 'pending' %}
+                        در انتظار پرداخت
+                    {% elif order.status == 'paid' %}
+                        پرداخت شده
+                    {% elif order.status == 'processing' %}
+                        در حال پردازش
+                    {% elif order.status == 'shipped' %}
+                        ارسال شده
+                    {% elif order.status == 'delivered' %}
+                        تحویل داده شده
+                    {% elif order.status == 'cancelled' %}
+                        لغو شده
+                    {% else %}
+                        {{ order.status }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="order-items">
+                {% for item in order.items.all %}
+                <div class="order-item">
+                    <div class="order-item-image">
+                        <img src="{{ item.product_image }}" alt="{{ item.product_name }}" onerror="this.src='https://placehold.co/60x60/1a1a2e/a855f7'">
+                    </div>
+                    <div class="order-item-info">
+                        <h4>{{ item.product_name }}</h4>
+                        <p>{{ item.product_price }}</p>
+                    </div>
+                    <div class="order-item-quantity">
+                        تعداد: {{ item.quantity }}
+                    </div>
+                    <div class="order-item-total">
+                        {{ item.get_total}}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="order-footer">
+                <div class="order-total">
+                    <span>جمع کل:</span>
+                    <span>{{ order.total_amount }}</span>
+                </div>
+                <div class="order-address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ order.user_address }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-orders">
+        <i class="fas fa-box-open"></i>
+        <h2>هنوز سفارشی ثبت نکردهاید</h2>
+        <p>برای مشاهده تاریخچه سفارشات، اولین خرید خود را انجام دهید</p>
+        <a href="{% url 'categories' %}" class="shop-btn">
+            <i class="fas fa-store"></i>
+            شروع خرید
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .orders-page {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: calc(100vh - 80px);
+    }
+
+    .orders-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .orders-header i {
+        font-size: 2.5rem;
+        color: #a855f7;
+        margin-bottom: 0.5rem;
+    }
+
+    .orders-header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .orders-header p {
+        color: rgba(255,255,255,0.5);
+    }
+
+    .orders-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .order-card {
+        background: rgba(20,20,35,0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(139,92,246,0.2);
+        overflow: hidden;
+    }
+
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 1rem 1.5rem;
+        background: rgba(0,0,0,0.3);
+        border-bottom: 1px solid rgba(139,92,246,0.1);
+        gap: 0.5rem;
+    }
+
+    .order-number {
+        font-weight: 700;
+        color: #a855f7;
+    }
+
+    .order-number i {
+        margin-left: 0.5rem;
+    }
+
+    .order-date {
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.5);
+    }
+
+    .order-status {
+        padding: 0.2rem 0.8rem;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        font-weight: 600;
+    }
+
+    .status-pending {
+        background: rgba(245,158,11,0.2);
+        color: #f59e0b;
+    }
+
+    .status-paid {
+        background: rgba(16,185,129,0.2);
+        color: #10b981;
+    }
+
+    .status-processing {
+        background: rgba(59,130,246,0.2);
+        color: #3b82f6;
+    }
+
+    .status-shipped {
+        background: rgba(139,92,246,0.2);
+        color: #a855f7;
+    }
+
+    .status-delivered {
+        background: rgba(16,185,129,0.2);
+        color: #10b981;
+    }
+
+    .status-cancelled {
+        background: rgba(233,69,96,0.2);
+        color: #e94560;
+    }
+
+    .order-items {
+        padding: 1rem 1.5rem;
+    }
+
+    .order-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(139,92,246,0.1);
+    }
+
+    .order-item:last-child {
+        border-bottom: none;
+    }
+
+    .order-item-image img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        background: #1a1a2e;
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    .order-item-info {
+        flex: 2;
+    }
+
+    .order-item-info h4 {
+        font-size: 0.85rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .order-item-info p {
+        font-size: 0.75rem;
+        color: #a855f7;
+    }
+
+    .order-item-quantity {
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.6);
+    }
+
+    .order-item-total {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #f59e0b;
+        min-width: 100px;
+        text-align: right;
+    }
+
+    .order-footer {
+        padding: 1rem 1.5rem;
+        background: rgba(0,0,0,0.2);
+        border-top: 1px solid rgba(139,92,246,0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .order-total {
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .order-total span:last-child {
+        color: #f59e0b;
+        margin-right: 0.5rem;
+    }
+
+    .order-address {
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.5);
+    }
+
+    .empty-orders {
+        text-align: center;
+        padding: 4rem;
+        background: rgba(20,20,35,0.6);
+        border-radius: 30px;
+    }
+
+    .empty-orders i {
+        font-size: 4rem;
+        color: #a855f7;
+        margin-bottom: 1rem;
+    }
+
+    .empty-orders h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-orders p {
+        color: rgba(255,255,255,0.5);
+        margin-bottom: 1.5rem;
+    }
+
+    .shop-btn {
+        display: inline-block;
+        padding: 0.8rem 2rem;
+        background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+        border-radius: 50px;
+        color: white;
+        text-decoration: none;
+    }
+
+    @media (max-width: 700px) {
+        .orders-page {
+            padding: 1rem;
+        }
+        .order-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .order-item {
+            flex-wrap: wrap;
+        }
+        .order-item-total {
+            text-align: left;
+        }
+        .order-footer {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
+{% endblock %}
